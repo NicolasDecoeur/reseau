@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Mirror;
 
-public class NetworkCharacterControler : MonoBehaviour
+public class NetworkCharacterControler : NetworkBehaviour
 {
     [SerializeField]
     private NavMeshAgent m_nameshagent;
 
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             int layermask = LayerMask.NameToLayer("Navmesh");

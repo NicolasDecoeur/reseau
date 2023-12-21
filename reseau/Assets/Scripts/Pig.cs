@@ -6,13 +6,15 @@ public class Pig : NetworkBehaviour, IDamageable
 {
     [SerializeField]
     private TextMeshPro m_text;
-    [SerializeField]
     [SyncVar(hook = nameof(RecivedDmgSync))]
     private int sync_pigHp = 10;
 
-
     public void OnCollisionEnter(Collision collision)
     {
+        if (isServer)
+        {
+            return;
+        }
         Debug.Log("Collision with " + collision.gameObject);
         LayerMask mask = LayerMask.NameToLayer("WeaponCharacter");
         if (collision.gameObject.layer == mask)
@@ -39,5 +41,13 @@ public class Pig : NetworkBehaviour, IDamageable
     {
         sync_pigHp = newValue;
         Debug.Log("your pig had " + oldValue + "HP" + " now you have " + newValue + " HP");
+    }
+
+
+    //exp canon pour bullet code canon 
+    public void someting()
+    {
+        var go = Instantiate(gameObject);
+        NetworkServer.Spawn(go);
     }
 }

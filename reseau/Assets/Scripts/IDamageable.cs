@@ -1,4 +1,6 @@
+using UnityEngine;
+
 public interface IDamageable
 {
-    public void InflictDamageCommand();
+    public void InflictDamageCommand(Vector3 collision);
 }
